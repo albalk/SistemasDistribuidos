@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Login</title>
+    
+    <script>
+        function login(event) {
+			event.preventDefault(); 
+			alert( "Enviando!" );
+            var user = document.getElementById("user").value;
+            var rec = document.getElementById("rec").value;
+			console.log(user);
+			console.log(rec);
+
+			var sendPost=$.post(
+				"https://vqfow2ezeftuzhy2elk7brwuqe0eopqr.lambda-url.us-east-1.on.aws/", //nuestra lamda
+				{user: user, rec : rec},
+				function(data) {
+
+					function jsonEscape(str)  {
+							return str.replace(/\n/g, "\\\\n").replace(/\r/g, "\\\\r").replace(/\t/g, "\\\\t").replace(/\\/g,"");
+					}
+
+				var json=data;
+				alert('La contraseña es: ' + JSON.stringify(json));
+           
+				}
+			)
+	}
+        
+    </script>
+</head>
+
+<body>
+    <form onsubmit="login(event)" enctype="multipart/form-data">
+        <div>
+			<h1>Registro de recuperación de contraseña:</h1>
+            <label>Usuario:</label>
+            <input type="text" id="user" name="user"><br><br>
+        </div>
+        <div>
+            <label>Frase / palabra de cuperacion:</label>
+            <input type="text" id="rec" name="rec"><br><br> 
+        </div>
+        <div>
+            <input type="submit" value="Recuperar contraseña" name="submit">
+        </div>
+    </form>
+</body>
+</html>

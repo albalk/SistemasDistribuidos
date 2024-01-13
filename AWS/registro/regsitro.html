@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+function setKeyFilename(event) {
+	event.preventDefault();
+    alert( "Enviando!" );
+	var user=document.getElementById("username").value;
+	var password=document.getElementById("password").value;
+	var email=document.getElementById("email").value;
+	var recuperacion=document.getElementById("recuperacion").value;
+	
+    //var user="userPrueba";
+
+    var sendPost=$.post(
+    "https://moae2ml2nluhusf3obu3nlzw3a0uqebe.lambda-url.us-east-1.on.aws/", //funcion lambda post
+
+        {user: user, email : email, password : password, recuperacion : recuperacion},
+        function(data) {
+
+            function jsonEscape(str)  {
+                    return str.replace(/\n/g, "\\\\n").replace(/\r/g, "\\\\r").replace(/\t/g, "\\\\t").replace(/\\/g,"");
+            }
+
+           var json=data;
+           alert('resultado ' + JSON.stringify(json));
+		   
+		   if(data)
+		   {
+			console.log("Entra");
+			var redirectURL = "https://oscarmarcos2023.s3.amazonaws.com/LogIn.html";
+			window.location.href = redirectURL;
+		   }
+		   else{
+			location.reload();
+		   }
+           
+        }
+    )
+/*      .done(function() {
+        alert( "second success" );
+      })
+      .fail(function(xhr, status, error) {
+        alert( error );
+      })
+      
+    sendPost.always(function() {
+    alert( "second finished" );
+    });
+*/
+
+
+}
+
+
+</script>
+
+
+
+</head>
+  
+  <form onsubmit="setKeyFilename(event)" enctype="multipart/form-data"> <!--nuestro bucket-->
+	  
+	  <label>Usuario:</label>
+	  <input type="text" name="username" id="username">
+	  <label>Contraseña:</label>
+	  <input type="text" name="password" id="password">
+	  <label>Email:</label>
+	  <input type="text" name="email" id="email">
+	  <label>Frase de recuperacion:</label>
+	  <input type="text" name="recuperacion" id="recuperacion">
+	  
+      <input type="submit" value="registrar" name="submit" >
+  </form>
+  </body>
+</html>
+

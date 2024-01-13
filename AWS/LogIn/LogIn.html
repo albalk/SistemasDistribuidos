@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<title>Login</title>
+		
+		<script>
+			function rederigir(){
+				var redirectURL = "https://oscarmarcos2023.s3.amazonaws.com/recuperacion.html";
+				window.location.href = redirectURL;
+			}
+
+			
+			function login(event) {
+				event.preventDefault(); 
+				var user = document.getElementById("username").value;
+				var pass = document.getElementById("password").value;
+				console.log(user);
+				console.log(pass);
+
+				var sendPost = $.post(
+					"https://n7bi33mdb2uuknwmpuazjweg6q0bkvqt.lambda-url.us-east-1.on.aws/", //nuestra funcion lambalogin
+					{user: user, pass: pass},
+					function(data) {
+						try {
+							var json = data;
+							console.log("json: " + JSON.stringify(json));
+							console.log("json message " + json.message);
+							if (json.message === 'Login successful') { //linea 69 py
+								console.log("Entra");		//bucket				//html cualquiera  //pasa user por paramatros
+								var redirectURL = "https://oscarmarcos2023.s3.amazonaws.com/postTwitter1.html?user=" + encodeURIComponent(user);
+								window.location.href = redirectURL;
+							}
+							else {
+								console.error("Error en la autenticación:", json.message);
+								alert("Error en la autenticación. Por favor, verifica tus credenciales.");
+							}
+						} catch (error) {
+							console.error("Error al analizar la respuesta JSON:", error);
+							alert("Error al procesar la respuesta del servidor.");
+						}
+					}
+				);
+			}
+		</script>
+	</head>
+
+	<body>
+		<form onsubmit="login(event)" enctype="multipart/form-data">
+			<div>
+				<label>Nombre de usuario:</label>
+				<input type="text" id="username" name="username"><br><br>
+			</div>
+			<div>
+				<label>Contraseña:</label>
+				<input type="password" id="password" name="password"><br><br>
+			</div>
+			<div>
+				<input type="submit" value="Iniciar sesión" name="submit">
+			</div>
+		</form>
+		<button onclick="rederigir()">He olvidado la contraseña</button>
+	</body>
+</html>

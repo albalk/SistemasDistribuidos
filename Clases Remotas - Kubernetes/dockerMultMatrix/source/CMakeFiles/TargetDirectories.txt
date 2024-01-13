@@ -1,0 +1,4 @@
+/home/ubuntu/entrega2/dockerMultMatrix/source/CMakeFiles/edit_cache.dir
+/home/ubuntu/entrega2/dockerMultMatrix/source/CMakeFiles/serverMultMatrix.dir
+/home/ubuntu/entrega2/dockerMultMatrix/source/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/entrega2/dockerMultMatrix/source/CMakeFiles/clientMultMatrix.dir

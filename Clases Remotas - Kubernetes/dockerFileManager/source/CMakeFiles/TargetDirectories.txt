@@ -1,0 +1,4 @@
+/home/ubuntu/entrega2/dockerFileManager/source/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/entrega2/dockerFileManager/source/CMakeFiles/edit_cache.dir
+/home/ubuntu/entrega2/dockerFileManager/source/CMakeFiles/serverFileManager.dir
+/home/ubuntu/entrega2/dockerFileManager/source/CMakeFiles/clientFileManager.dir

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+function getParameterByName( name ){
+  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+  var regexS = "[\\?&]"+name+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( window.location.href );
+  if( results == null )
+    return "";
+  else
+    return decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function rederigir(){
+	var redirectURL = "https://oscarmarcos2023.s3.amazonaws.com/readPost.html";
+	window.location.href = redirectURL;
+}
+	
+function getAWSKeys() {
+	var asd=$.get(
+ 			"https://pvzrspmultdvdvgwtbkmskg4ni0okmps.lambda-url.us-east-1.on.aws/", //funcion keysS3
+		    {},
+		    function(data) {
+
+		       var json=data;
+               //        json=JSON.parse(json);
+		       document.getElementById("Policy").value = json.stringToSign;
+		       document.getElementById("X-Amz-Credential").value = json.xAmzCredential;		
+		       document.getElementById("X-Amz-Date").value = json.amzDate;		
+		       document.getElementById("X-Amz-Signature").value = json.stringSigned;	
+		       document.getElementById("X-Amz-Security-Token").value = json.securityToken;	
+			
+		    }
+		)
+  
+}
+
+function setKeyFilename() {
+    alert( "Enviando!" );
+    var user = getParameterByName('user');
+	document.getElementById("key").value = user + document.getElementById("file").value.substring(document.getElementById("file").value.lastIndexOf('\\')+1);	
+	
+    var post=document.getElementById("post").value;
+    var file=document.getElementById("key").value ;
+    //var user="userPrueba";
+	
+	
+	
+		
+		if (user) {
+			console.log('Nombre de usuario:', user)
+		}
+
+    var sendPost=$.post(
+    "https://7c2rj2ciwgeoe5h3a5vksxfari0sugtj.lambda-url.us-east-1.on.aws/", //funcion lambda post
+
+        {user: user, comment : post, attachment : file},
+        function(data) {
+
+            function jsonEscape(str)  {
+                    return str.replace(/\n/g, "\\\\n").replace(/\r/g, "\\\\r").replace(/\t/g, "\\\\t").replace(/\\/g,"");
+            }
+
+           var json=data;
+           alert('resultado ' + JSON.stringify(json));
+           
+        }
+    )
+/*      .done(function() {
+        alert( "second success" );
+      })
+      .fail(function(xhr, status, error) {
+        alert( error );
+      })
+      
+    sendPost.always(function() {
+    alert( "second finished" );
+    });
+*/
+}
+
+
+</script>
+
+
+
+</head>
+  <body onload="getAWSKeys()">
+
+  <label for="post">Escribe un mensaje:</label>
+
+  <textarea id="post" name="post"
+            rows="5" cols="33">
+
+  </textarea>
+
+
+
+  <form action="https://oscarmarcos2023.s3.us-east-1.amazonaws.com" onsubmit="setKeyFilename()" method="post" enctype="multipart/form-data"> <!--nuestro bucket-->
+    <input type="hidden"  id="X-Amz-Credential" name="X-Amz-Credential" value="" />
+    <input type="hidden"  id="X-Amz-Date" name="X-Amz-Date" value="" />
+    <input type="hidden"  id="Policy" name="Policy" value="" />
+    <input type="hidden"   id="X-Amz-Signature" name="X-Amz-Signature" value="" />
+    <input type="hidden" id="key" name="key" value="fichero.sln" /><br />
+      <input type="hidden" name="acl" value="public-read" />
+      <input type="hidden" name="success_action_redirect" value="https://oscarmarcos2023.s3.us-east-1.amazonaws.com/success.html" /> <!--nuestro bucket-->
+      <input type="hidden"   name="X-Amz-Algorithm" value="AWS4-HMAC-SHA256" />
+      <input type="hidden" id="X-Amz-Security-Token" name="X-Amz-Security-Token" value=""/>
+    Select file to upload:
+      <input type="file" name="file" id="file" accept="video/mp4,image/png">
+      <input type="submit" value="Upload Image" name="submit" >
+  </form>
+	<button onclick="rederigir()">Ver mensajes</button>
+  </body>
+</html>
+

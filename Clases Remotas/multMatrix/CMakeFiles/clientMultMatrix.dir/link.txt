@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/clientMultMatrix.dir/utils.cpp.o CMakeFiles/clientMultMatrix.dir/clientMultMatrix.cpp.o  -o clientMultMatrix -lpthread 

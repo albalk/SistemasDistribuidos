@@ -1,0 +1,15 @@
+#Alba López, Oscar Marcos INSO3A
+apiVersion: v1
+kind: Service
+metadata:
+ name: multmatrix-entrypoint
+ namespace: default
+spec:
+ type: NodePort
+ selector:
+  app: multmatrix
+ ports:
+ - port: 60000
+   targetPort: 60000
+   nodePort: 31006
+ externalTrafficPolicy: Cluster

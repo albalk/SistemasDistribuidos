@@ -1,0 +1,4 @@
+/home/ubuntu/Practica1/fileManager/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/Practica1/fileManager/CMakeFiles/edit_cache.dir
+/home/ubuntu/Practica1/fileManager/CMakeFiles/serverFileManager.dir
+/home/ubuntu/Practica1/fileManager/CMakeFiles/clientFileManager.dir

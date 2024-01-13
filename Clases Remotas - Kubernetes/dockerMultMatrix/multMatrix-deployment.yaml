@@ -1,0 +1,19 @@
+#Alba López, Oscar Marcos INSO3A
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: kubernetes-multmatrix
+ namespace: default
+spec:
+ replicas: 2
+ selector:
+  matchLabels:
+   app: multmatrix
+ template:
+  metadata:
+   labels:
+    app: multmatrix
+  spec:
+   containers:
+   - name: kubernetes-multmatrix
+     image: docker.io/albalc/multmatrix:1.1

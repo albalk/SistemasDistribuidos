@@ -1,0 +1,4 @@
+/home/ubuntu/Practica1/multMatrix/CMakeFiles/edit_cache.dir
+/home/ubuntu/Practica1/multMatrix/CMakeFiles/serverMultMatrix.dir
+/home/ubuntu/Practica1/multMatrix/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/Practica1/multMatrix/CMakeFiles/clientMultMatrix.dir

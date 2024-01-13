@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: kubernetes-filemanager
+ namespace: default
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   app: filemanager
+ template:
+  metadata:
+   labels:
+    app: filemanager
+  spec:
+   containers:
+   - name: kubernetes-filemanager
+     image: docker.io/oscarmc2003/filemanager:1.2
+     volumeMounts:
+     - mountPath: /dirprueba
+       name: directorio-dirprueba
+   volumes:
+   - name: directorio-dirprueba
+     hostPath:
+      path: /home/ubuntu/compartidopractica
+      type: Directory
